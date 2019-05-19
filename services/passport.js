@@ -27,19 +27,17 @@ passport.use(
             callbackURL: '/auth/google/callback', 
             proxy: true
         }, 
-        (accessToken, refreshToken, profile, done) => {
+        async (accessToken, refreshToken, profile, done) => {
             //Atempt to find users already in database to not add again
-            User.findOne({ googleId: profile.id }).then((existingUser) => {
-                if (existingUser) {
-                    //We already have a record with the given ID
-                    done(null, existingUser);
-                } else {
-                    //Takes new mongoose model instance and saves to the database
-                    new User({ googleId: profile.id})
-                        .save()
-                        .then(user => done(null, user))
-                }
-            })
+            const existingUser = await User.findOne({ googleId: profile.id })
+            
+            if (existingUser) {
+                //If we already have a record with the given ID
+                return done(null, existingUser);
+            } 
+            //Takes new mongoose model instance and saves to the database
+            const user = await new User({ googleId: profile.id }).save()
+            done(null, user);  
         }
     )
 );
