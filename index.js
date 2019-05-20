@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const cookieSession = require('cookie-session');
 //Tells Passport.js to make use of cookies
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 //Must be in this order to register the Schema for model 'users'
 require('./models/user');
@@ -14,6 +15,9 @@ mongoose.connect(keys.mongoURI, {useNewUrlParser: true});
 
 //Express App used to register the route handler with.
 const app = express();
+
+//app.use - Express Middleswares that operate on incoming request before sent off to request handlers
+app.use(bodyParser.json());
 
 //Creates cookie session
 app.use(
@@ -29,8 +33,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Returns a function and immedietley invokes app
-require('./routes/authRoutes')(app)
+//Returns a function and immedietley invokes the app object
+require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
 
 //Dynamically figures out which port to listen to. If one hasn't been defined then by default use 5000
 const PORT = process.env.PORT || 5000
