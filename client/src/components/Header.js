@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Payments from './Payments';
 
 class Header extends Component {
     //Helper method to inspect this.props.auth and return it's value as JSX
@@ -11,7 +12,10 @@ class Header extends Component {
             case false: 
                 return <li><a href="/auth/google">Login</a></li>
             default:
-                return <li><a href="/api/logout">Logout</a></li>;
+                return [
+                    <li key="1"><Payments /></li>,
+                    <li key="2"><a href="/api/logout">Logout</a></li>   
+                ];
         };
     };
 
