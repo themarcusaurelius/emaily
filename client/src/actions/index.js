@@ -6,5 +6,5 @@ export const fetchUser = () => async dispatch => {
     //GET request to the backend server API
     const res = await axios.get('/api/current_user')
     //When we have our response, we will dispatch
-    dispatch({ type: FETCH_USER, payload: res })
+    dispatch({ type: FETCH_USER, payload: res.data })
 };

@@ -10,13 +10,20 @@ module.exports = app => {
     );
 
     //Route handler to handle if user visits /auth/google/callback
-    app.get('/auth/google/callback', passport.authenticate('google'))
+    app.get(
+        '/auth/google/callback', 
+        passport.authenticate('google'),
+        //Redirects after successfull User Authentication
+        (req, res) => {
+           res.redirect('/surveys');
+        }
+    );
 
     //Route handler for logging out
     app.get('/api/logout', (req,res) => {
         req.logout();
-        //Aknowledges signout
-        res.send(req.user);
+        //Redirects after logout back to landing
+        res.redirect('/');
     });
     
     //GET Request route handler to get access to current user logging in.
