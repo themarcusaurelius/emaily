@@ -1,14 +1,11 @@
 const keys =require('../config/keys');
 const stripe = require('stripe')(keys.stripeSecretKey)
+const requireLogin = require('../middlewares/requireLogin');
 
 module.exports = app => {
     //Route handler for post requests token made to Stripe API to finalize charge and update credits
-    app.post('/api/stripe', async (req, res) => {
-        //Error handling if user is not logged in
-        if (!req.user) {
-            return res.status(401).send({ error: 'You must log in' })
-        }
-
+    //Not invoked because it is a reference to a function for express to run internally
+    app.post('/api/stripe', requireLogin, async (req, res) => {
         const charge = await stripe.charges.create({
             amount: 500,
             currency: 'usd',
