@@ -7,7 +7,8 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 //Must be in this order to register the Schema for model 'users'
-require('./models/user');
+require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
 //Connects MongoDB to Express API
@@ -36,6 +37,7 @@ app.use(passport.session());
 //Returns a function and immediately invokes the app object
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 //Configuration for Express to behave correctly in production environment
 if (process.env.NODE_ENV === 'production') {
