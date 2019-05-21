@@ -9,8 +9,12 @@ const Survey = mongoose.model('surveys');
 
 //Arguments mut be in the proper order to run properly
 module.exports = app => {
+    app.get('/api/surveys/thanks', (req, res) => {
+        res.send('Thanks for voting!');
+    });
+
     //Not calling the function - simply telling express app object that we have a function it should checkout if a user is logged in
-    app.post('/api/surveys', requireLogin, requireCredits, (req, res) => {
+    app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
         //ES6 destructuring to pull out certain properties
         const { title, subject, body, recipients } = req.body;
         //lowercase since it is an instance
@@ -26,8 +30,22 @@ module.exports = app => {
             dateSent: Date.now()
         });
 
-        //Send the Email
+        //Send the Email 
         const mailer = new Mailer(survey, surveyTemplate(survey));
+        
+        //Watch if anything goes wrong with these statements, catch requests and send error  
+        try {
+            await mailer.send();
+            //saves survey to the database
+            await survey.save();
+            //Subracts credits after survey sent 
+            req.user.credits -= 1;
+            const user = await req.user.save();
+            //send back updated user model
+            res.send(user)
+        } catch (err) {
+            res.status()
+        }   
     });
 };
 

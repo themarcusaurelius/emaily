@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const recipientSchema = new Schema({
     email: String,
-    //Initially Set tO False
+    //Initially Set to False
     responded: { type: Boolean, default: false }
 });
 
