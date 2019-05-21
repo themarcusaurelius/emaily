@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
 const requireCredits = require('../middlewares/requireCredits');
+const Mailer = require('../services/Mailer');
+const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 
 //Model class to create an instance of a survey
 const Survey = mongoose.model('surveys');
@@ -23,6 +25,9 @@ module.exports = app => {
             _user: req.user.id,
             dateSent: Date.now()
         });
+
+        //Send the Email
+        const mailer = new Mailer(survey, surveyTemplate(survey));
     });
 };
 
