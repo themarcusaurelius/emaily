@@ -3,6 +3,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 //Field component is a helper for rendering any type of traditional form input
 import { reduxForm, Field } from 'redux-form';
+import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
 
 //Capitol letters because it should never be changed
@@ -27,8 +28,12 @@ class SurveyForm extends Component {
             <div>
                 <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
                     {this.renderFields()}
-                    <button type="submit" className="btn btn-small deep-purple lighten-2">
-                        Submit
+                    <Link to="/surveys" className="btn btn-small left red accent-3">
+                        Cancel
+                        <i className="material-icons right">cancel</i>
+                    </Link>
+                    <button type="submit" className="btn btn-small right deep-purple lighten-2">
+                        Next
                         <i className="material-icons right">send</i>
                     </button>
                 </form>
