@@ -31,7 +31,7 @@ class Header extends Component {
                     >
                         Emaily
                     </Link>
-                    <ul id="nav-mobile" className="right hide-on-small-and-down">
+                    <ul id="nav-mobile" className="right">
                         {this.renderContent()}
                     </ul>
                 </div>

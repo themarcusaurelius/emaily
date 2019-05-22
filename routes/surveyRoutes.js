@@ -44,7 +44,7 @@ module.exports = app => {
             //send back updated user model
             res.send(user)
         } catch (err) {
-            res.status()
+            res.status(422).send(err)
         }   
     });
 };
