@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
+import validateEmails from '../../utils/validateEmails';
 
 //Capitol letters because it should never be changed
 const FIELDS = [
@@ -26,7 +27,7 @@ class SurveyForm extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+                <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
                     {this.renderFields()}
                     <Link to="/surveys" className="btn btn-small left red accent-3">
                         Cancel
@@ -46,16 +47,19 @@ class SurveyForm extends Component {
 function validate(values) {
     const errors = {};
 
+    //Validate runs automatically so we need to add an empty string to not crash
+    errors.emails = validateEmails(values.emails || '');
+
     _.each(FIELDS, ({ name, noValueError }) => {
         if (!values[name]) {
             errors[name] = noValueError
         }
     });
-
+    
     return errors;
 };
 
-//Only requires one option to be passed in. Validate automatically runs when added in
+//Only requires one option to be passed in. Validate automatically runs when page loaded.
 export default reduxForm({
     validate,
     form: 'surveyForm'
