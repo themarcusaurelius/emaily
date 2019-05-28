@@ -19,26 +19,18 @@
 * Separate production and development resources with advanced <b>API key handling techniques</b>
 * Educate users on how to use the app with custom build landing pages
 
-### Demoes
+### Demo
 
-- [Widescreen](https://drive.google.com/file/d/1qYlutBazsrYM6ZLkKngHXrOj2JRbp0K7/view)
-
-  <p align="center">
-    <img src="https://giant.gfycat.com/FatalBelovedArabianoryx.gif">
-  </p>
-
-- [Normal](https://drive.google.com/file/d/1rIa7fcEAjyiVvj4E2n3ebHNga3LUFIk8/view)
+- [Demo](https://drive.google.com/file/d/1rIa7fcEAjyiVvj4E2n3ebHNga3LUFIk8/view)
   
   <p align="center">
     <img src="https://giant.gfycat.com/PoliteJealousIrishredandwhitesetter.gif">
   </p>
-
-- [Mobile](https://drive.google.com/file/d/1_ySdU_5Zzw3TSgXsC9fWveFU-eUMqz_e/view)
-
+  
   <p align="center">
-    <img src="https://giant.gfycat.com/ThoughtfulSpryBlacklab.gif">
+    <img src="https://giphy.com/gifs/IeivadbvO6gmMVCtLG/html5">
   </p>
- 
+
 
 ### Tech/framework used
 
