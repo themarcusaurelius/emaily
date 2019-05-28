@@ -6,20 +6,13 @@ import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
-
-//Capitol letters because it should never be changed
-const FIELDS = [
-    { label: 'Survey Title', name: 'title', noValueError: 'You must provide a title' },
-    { label: 'Subject Line', name: 'subject', noValueError: 'You must provide a subject'  },
-    { label: 'Email Body', name: 'body', noValueError: 'You must provide a body' },
-    { label: 'Recipient List', name: 'emails', noValueError: 'You must provide a list of emails'}
-]
+import formFields from './formFields';
 
 class SurveyForm extends Component {
     renderFields() {
-        return _.map(FIELDS, ({ label, name }) => {
+        return _.map(formFields, ({ label, name, icon }) => {
             return (
-                <Field key={name} component={SurveyField} type="text" label={label} name={name} />
+                <Field key={name} component={SurveyField} type="text" label={label} name={name} icon={icon}  />
             );
         });
     };
@@ -27,16 +20,22 @@ class SurveyForm extends Component {
     render() {
         return (
             <div>
+                <br />
                 <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
-                    {this.renderFields()}
-                    <Link to="/surveys" className="btn btn-small left red accent-3">
-                        Cancel
-                        <i className="material-icons right">cancel</i>
-                    </Link>
-                    <button type="submit" className="btn btn-small right deep-purple lighten-2">
-                        Next
-                        <i className="material-icons right">send</i>
-                    </button>
+                    <div className="card z-depth-5" style={{ height: '530px'}}>
+                        <br/>
+                        <div className="container">
+                            {this.renderFields()}
+                            <Link to="/surveys" className="z-depth-5 btn btn-small left waves-effect waves-red red accent-3">
+                                Cancel
+                                <i className="material-icons right">cancel</i>
+                            </Link>
+                            <button type="submit" className="z-depth-5 btn btn-small right waves-effect waves-purple deep-purple lighten-2">
+                                Next
+                                <i className="material-icons right">send</i>
+                            </button>
+                        </div>  
+                    </div>    
                 </form>
             </div>
         );
@@ -46,11 +45,10 @@ class SurveyForm extends Component {
 //Takes single argument of values which is the object identical from the values inputed
 function validate(values) {
     const errors = {};
-
     //Validate runs automatically so we need to add an empty string to not crash
-    errors.emails = validateEmails(values.emails || '');
+    errors.recipients = validateEmails(values.recipients || '');
 
-    _.each(FIELDS, ({ name, noValueError }) => {
+    _.each(formFields, ({ name, noValueError }) => {
         if (!values[name]) {
             errors[name] = noValueError
         }
@@ -62,5 +60,8 @@ function validate(values) {
 //Only requires one option to be passed in. Validate automatically runs when page loaded.
 export default reduxForm({
     validate,
-    form: 'surveyForm'
+    //Tells redux form how to name form to make it easy to find
+    form: 'surveyForm',
+    //Persists the data inputed in the forms
+    destroyOnUnmount: false
 })(SurveyForm);

@@ -1,3 +1,6 @@
+const _ = require('lodash');
+const { Path } = require('path-parser');
+const { URL } = require('url')
 const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
 const requireCredits = require('../middlewares/requireCredits');
@@ -9,8 +12,45 @@ const Survey = mongoose.model('surveys');
 
 //Arguments mut be in the proper order to run properly
 module.exports = app => {
-    app.get('/api/surveys/thanks', (req, res) => {
+    app.get('/api/surveys/:surveyId/:choice', (req, res) => {
         res.send('Thanks for voting!');
+    });
+
+    //Webhooks route handler
+    app.post('/api/surveys/webhooks', (req, res) => {
+        //Takes full url and extract off just the route we need - Matcher that extracts survey id and choice
+        const p = new Path('/api/surveys/:surveyId/:choice');
+        
+        _.chain(req.body)
+            .map(({ email, url}) => {
+                const match = p.test(new URL(url).pathname);
+                if (match) {
+                    return { email, surveyId: match.surveyId, choice: match.choice }
+                }
+            })
+            .compact()
+            //Goes through the events and makes sure we never have any duplicate ids
+            .uniqBy('email', 'surveyId')
+            //Mongoose query logic to handle whether user clicked yes or no and update accordingly
+            .each(({ surveyId, email, choice }) => {
+                Survey.updateOne(
+                    {
+                        _id: surveyId,
+                        recipients: {
+                            $elemMatch: { email: email, responded: false }
+                    }
+                    }, 
+                    {
+                        $inc: { [choice]: 1 },
+                        $set: { 'recipients.$.responded': true },
+                        lastResponded: new Date()
+                    }
+                ).exec();
+            })
+            //Returns Valuse
+            .value();
+            //Tells Sendgrid everything is ok
+            res.send({}); 
     });
 
     //Not calling the function - simply telling express app object that we have a function it should checkout if a user is logged in

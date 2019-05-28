@@ -1,5 +1,6 @@
 //This shows all other surveys
 import React, { Component } from 'react';
+import { reduxForm } from 'redux-form';
 import SurveyForm from './SurveyForm';
 import SurveyFormReview from './surveyFormReview';
 
@@ -8,7 +9,7 @@ class SurveyNew extends Component {
 
     renderContent() {
         if (this.state.showFormReview) {
-            return <SurveyFormReview />
+            return <SurveyFormReview onCancel={() => this.setState({ showFormReview: false })} />
         }
 
         return (
@@ -25,4 +26,7 @@ class SurveyNew extends Component {
     }
 };
 
-export default SurveyNew;
+//Not explicitly dumping values but does because it is a part of redux-forms
+export default reduxForm({
+    form: 'surveyForm'
+})(SurveyNew);
