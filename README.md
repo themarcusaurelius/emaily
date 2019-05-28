@@ -4,7 +4,7 @@
 
 ## Motivation
 
-> Full-Stack Web application that profiles the advanced features of React, Redux, Express.js, Node.js and MongoDB.
+> Full-Stack Web application that profiles the advanced features of React, Redux, Express.js, Node.js, and MongoDB.
 
 ### Learning Objectives
 
