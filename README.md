@@ -9,11 +9,11 @@
 ### Learning Objectives
 
 * Architectural considerations of building a full stack app
-* Connect a front-end <b>Create-React-App</b> server to a NodeJS and Express backend
+* Connect a front-end <b>Create-React-App</b> server to a <b>NodeJS and Express backend</b>
 * Communicate data from the <b>Mongo</b> database to the React application
 * Understand how to route user requests on the front end with <b>React Router</b> and on the backend with Express
 * Build reusable user inputs with <b>Redux Form</b>, complete with navigation
-* Handle credit cards and receive payments from your users with <b>Stripe</b>
+* Handle credit cards and receive payments from users with <b>Stripe</b>
 * Engage users with automated <b>emails</b>
 * Enhance authentication flows in the app with <b>Google OAuth authentication</b>
 * Separate production and development resources with advanced <b>API key handling techniques</b>
