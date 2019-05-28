@@ -7,7 +7,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 //Must be in this order to register the Schema for model 'users'
-require('./models/User');
+require('./models/markUser');
 require('./models/Survey');
 require('./services/passport');
 
