@@ -28,7 +28,7 @@
   </p>
   
   <p align="center">
-    <img src="https://giphy.com/gifs/IeivadbvO6gmMVCtLG.gif">
+    <img src="https://giant.gfycat.com/BelatedAppropriateFlatcoatretriever.gif">
   </p>
 
 
