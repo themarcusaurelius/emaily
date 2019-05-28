@@ -20,8 +20,6 @@
 * Educate users on how to use the app with custom build landing pages
 
 ### Demo
-
-- [Demo](https://drive.google.com/file/d/1rIa7fcEAjyiVvj4E2n3ebHNga3LUFIk8/view)
     
   <p align="center">
     <img src="https://giant.gfycat.com/BelatedAppropriateFlatcoatretriever.gif">
