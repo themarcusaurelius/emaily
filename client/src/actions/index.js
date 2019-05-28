@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER } from './types';
+import { FETCH_USER, FETCH_SURVEYS } from './types';
 
 //Whenever action creator is called, it will return a function, redux-thunk will auto call it with the dispatch
 export const fetchUser = () => async dispatch => {
@@ -24,4 +24,11 @@ export const submitSurvey = (values, history) => async dispatch => {
     history.push('/surveys')
     dispatch({ type: FETCH_USER, payload: res.data })
 };
+
+//returns list of surveys
+export const fetchSurveys = () => async dispatch => {
+    const res = await axios.get('/api/surveys');
+
+    dispatch({ type: FETCH_SURVEYS, payload: res.data });
+}
 

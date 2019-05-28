@@ -11,8 +11,9 @@ require('./models/User');
 require('./models/Survey');
 require('./services/passport');
 
-//Connects MongoDB to Express API
-mongoose.connect(keys.mongoURI, {useNewUrlParser: true});
+//Connects MongoDB to Express API - 1st Optional
+mongoose.Promise = global.Promise;
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 //Express App used to register the route handler with.
 const app = express();

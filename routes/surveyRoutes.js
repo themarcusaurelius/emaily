@@ -12,8 +12,16 @@ const Survey = mongoose.model('surveys');
 
 //Arguments mut be in the proper order to run properly
 module.exports = app => {
+    //Fetches all user surveys from database
+    app.get('/api/surveys', requireLogin, async (req, res) => {
+        const surveys = await Survey.find({ _user: req.user.id })
+            .select({ recipients: false });
+
+        res.send(surveys);
+    });
+
     app.get('/api/surveys/:surveyId/:choice', (req, res) => {
-        res.send('Thanks for voting!');
+        res.send('Thanks for voting!'); 
     });
 
     //Webhooks route handler
